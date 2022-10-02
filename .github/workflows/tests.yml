@@ -28,11 +28,11 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip
           ini-values: error_reporting=E_ALL
           tools: composer:v2
-          coverage: none
+          coverage: xdebug
 
       - name: Install dependencies
         run: |
           composer install
 
       - name: Execute unit/feature tests
-        run: vendor/bin/pest
+        run: php harvest-cli test --without-tty --coverage --min=40 --coverage-html=output
