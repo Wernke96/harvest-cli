@@ -21,4 +21,8 @@
             <directory suffix=".php">./app</directory>
         </include>
     </coverage>
+    <php>
+        <env name="HARVEST_TOKEN" value="testing" />
+        <env name="HARVEST_ACCOUNT" value="testing" />
+    </php>
 </phpunit>

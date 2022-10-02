@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Sdk\HarvestSdk;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
@@ -28,9 +29,8 @@ class InspireCommand extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(HarvestSdk $harvestSdk)
     {
-        Http::baseUrl();
         render(<<<'HTML'
             <div class="py-1 ml-2">
                 <div class="px-1 bg-blue-300 text-black">Laravel Zero</div>
