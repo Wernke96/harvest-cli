@@ -2,6 +2,8 @@
 
 namespace App\Commands;
 
+use App\Exceptions\HarvestException;
+use App\Models\HarvestUser;
 use App\Sdk\HarvestSdk;
 use LaravelZero\Framework\Commands\Command;
 
@@ -30,11 +32,18 @@ class CurrnetUserCommand extends Command
     {
         try {
             $results = $harvestSdk->getCurrentUser();
-            dd($results);
-        } catch (\Exception $e) {
-            $this->info($e->getMessage());
+            $harvestUser = new HarvestUser(...$results);
+            foreach ($harvestUser->toArray() as $key => $value) {
+                if(is_bool($value)){
+                    $value = (int)$value;
+                }
+                $this->line("<fg=green>{$key}</>: <fg=blue>{$value} </>");
+            }
+        } catch (HarvestException $e) {
+            $this->error($e->getMessage());
+            return 1;
         }
 
-        return 1;
+        return 0;
     }
 }
